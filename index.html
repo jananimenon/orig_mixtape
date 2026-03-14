@@ -14,9 +14,8 @@ body{
   justify-content:center;
   align-items:center;
   min-height:100vh;
-  overflow:hidden;
-  padding-top:40px;  /* mandatory top space */
-  padding-bottom:40px; /* mandatory bottom space */
+  padding-top:40px;  /* top breathing space */
+  padding-bottom:40px; /* bottom breathing space */
   box-sizing:border-box;
 }
 
@@ -48,6 +47,7 @@ body{
 .player{
   width:92%;
   max-width:420px;
+  height:90vh;  /* fixed height relative to viewport */
   background:#141414;
   border-radius:20px;
   padding:24px;
@@ -58,7 +58,7 @@ body{
   flex-direction:column;
   gap:18px;
   text-align:center;
-  margin:auto; /* centers player vertically with padding above */
+  box-sizing:border-box;
 }
 
 /* ARTWORK */
@@ -134,8 +134,8 @@ button:active{
 
 /* PLAYLIST */
 .playlist{
-  max-height:200px;
-  overflow-y:auto;
+  flex:1;               /* take remaining space */
+  overflow-y:auto;      /* scroll if overflow */
   border-top:1px solid rgba(255,255,255,.1);
   padding-top:10px;
 }

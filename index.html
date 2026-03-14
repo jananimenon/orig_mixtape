@@ -109,9 +109,9 @@ body{
   gap:20px;
 }
 
-#shuffleBtn {
-  width:50px;
-  height:50px;
+button, #shuffleBtn {
+  width:60px;
+  height:60px;
   border-radius:50%;
   display:flex;
   justify-content:center;
@@ -120,14 +120,24 @@ body{
   color:#eef0f2;
   border:none;
   cursor:pointer;
-  transition: transform 0.2s ease, background 0.2s ease;
+  transition: all 0.2s ease;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.3);
 }
-#shuffleBtn:hover {
+
+button:hover, #shuffleBtn:hover {
   transform: scale(1.15);
   background:#0f2fff;
 }
-#shuffleBtn:active {
+
+button:active, #shuffleBtn:active {
   transform: scale(0.95);
+  box-shadow: 0 2px 4px rgba(0,0,0,0.3);
+}
+
+/* make SVGs fit the button perfectly */
+button svg, #shuffleBtn svg {
+  width: 60%;
+  height: 60%;
 }
 
 button{

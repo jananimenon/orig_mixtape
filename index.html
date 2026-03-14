@@ -66,6 +66,24 @@ body{
   background-size:cover;
   background-position:center;
   box-shadow:0 0 25px rgba(13,33,161,.5);
+  position:relative;
+}
+
+/* PROGRESS BAR */
+.progress-container{
+  width:100%;
+  height:6px;
+  background:rgba(255,255,255,0.2);
+  border-radius:3px;
+  margin-top:10px;
+  cursor:pointer;
+  position:relative;
+}
+.progress{
+  height:100%;
+  background:#0f2fff;
+  border-radius:3px;
+  width:0%;
 }
 
 /* SONG INFO CENTERED */
@@ -139,6 +157,11 @@ button:active{
 <div class="player">
   <div class="art" id="artwork"></div>
 
+  <!-- PROGRESS BAR -->
+  <div class="progress-container" id="progressContainer">
+    <div class="progress" id="progress"></div>
+  </div>
+
   <div>
     <div class="title" id="title">Mixtape</div>
     <div class="artist" id="artist"></div>
@@ -181,19 +204,8 @@ const songs = [
     title: "Jab Saamne Tum Aajate Ho",
     artist: "Jagjit Singh, Asha Bhonsle",
     artwork: "https://raw.githubusercontent.com/jananimenon/orig_mixtape/main/images/Jagjit%20Singh.jpg"
-  },
-  {
-    url: "https://raw.githubusercontent.com/jananimenon/orig_mixtape/main/songs/Ek%20Pyar%20Ka%20Nagma%20Hai%20_%20Lyrical%20Video%20_%20Jagjit%20Singh%20Old%20Hindi%20song%20_%20Evergreen%20Song.mp3",
-    title: "Ek Pyaar Ka Nagma Hai",
-    artist: "Jagjit Singh",
-    artwork: "https://raw.githubusercontent.com/jananimenon/orig_mixtape/main/images/Jagjit%20Singh.jpg"
-  },
-  {
-    url: "https://raw.githubusercontent.com/jananimenon/orig_mixtape/main/songs/Gham%20Ka%20Khazana%20Tera%20Bhi%20Hai%20With%20Lyrical%20_%20Jagjit%20Singh%20_%20Lata%20Mangeshkar%20_%20Sentimental%20Ghazal.mp3",
-    title: "Gham Ka Khazana Tera Bhi Hai",
-    artist: "Jagjit Singh",
-    artwork: "https://raw.githubusercontent.com/jananimenon/orig_mixtape/main/images/Jagjit%20Singh.jpg"
   }
+  // add more songs here
 ];
 
 let currentIndex = 0;
@@ -206,6 +218,8 @@ const playBtn = document.getElementById("playBtn");
 const prevBtn = document.getElementById("prevBtn");
 const nextBtn = document.getElementById("nextBtn");
 const shuffleBtn = document.getElementById("shuffleBtn");
+const progress = document.getElementById("progress");
+const progressContainer = document.getElementById("progressContainer");
 
 /* BUILD PLAYLIST */
 songs.forEach((song, i)=>{
@@ -259,6 +273,21 @@ function shuffleSong(){
   let rand = Math.floor(Math.random()*songs.length);
   playSong(rand);
 }
+
+/* UPDATE PROGRESS */
+audio.addEventListener("timeupdate", ()=>{
+  const percent = (audio.currentTime/audio.duration)*100;
+  progress.style.width = percent + "%";
+});
+
+/* CLICK PROGRESS TO SEEK */
+progressContainer.addEventListener("click",(e)=>{
+  const rect = progressContainer.getBoundingClientRect();
+  const offsetX = e.clientX - rect.left;
+  const totalWidth = rect.width;
+  const percent = offsetX/totalWidth;
+  audio.currentTime = percent * audio.duration;
+});
 
 /* EVENT LISTENERS */
 playBtn.onclick = togglePlay;

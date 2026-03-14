@@ -19,6 +19,15 @@ body{
   box-sizing:border-box;
 }
 
+button,
+#progressContainer {
+  -webkit-tap-highlight-color: transparent; /* iOS Safari */
+  -moz-tap-highlight-color: transparent;    /* Firefox on mobile (if supported) */
+  tap-highlight-color: transparent;         /* future-proof */
+  outline: none;    /* prevent focus outlines sticking */
+  user-select: none; /* prevent text selection on long tap */
+}
+
 /* STARS BACKGROUND */
 .stars{
   position:fixed;
